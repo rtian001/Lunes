@@ -620,7 +620,6 @@ def main():
         if display:
             display.stop()
 
-
+Allow_screenshot=False
 if __name__ == "__main__":
-    Allow_screenshot=False
     main()
