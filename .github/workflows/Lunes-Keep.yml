@@ -71,13 +71,14 @@ jobs:
           TG_API: ${{ secrets.TG_API }}
         run: python scripts/Lunes-Keep.py
 
-#      - name: 上传截图
-#        uses: actions/upload-artifact@v4
-#        if: always()
-#        with:
-#          name: screenshots-${{ github.run_number }}
-#          path: output/screenshots/
-#          retention-days: 3
+
+      - name: 上传截图 
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+           name: screenshots-${{ github.run_number }}
+           path: output/screenshots/
+           retention-days: 3
 
       - name: 清理旧运行
         uses: Mattraks/delete-workflow-runs@v2
