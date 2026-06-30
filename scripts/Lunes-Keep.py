@@ -91,32 +91,12 @@ def notify_telegram(email: str, ok: bool, msg: str = "", screenshot_file: str = 
     try:
         token = os.environ.get("TELEGRAM_BOT_TOKEN")
         chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+        tg_api = os.environ.get("TG_API")
         if not token or not chat_id:
             return
 
         status = "✅ 保活成功" if ok else "❌ 保活失败"
-        lines = [status, "", f"账号：{email}"]
-        if msg:
-            lines.append(f"信息：{msg}")
-        lines.append(f"时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        lines.append("")
-        lines.append("Lunes Host Auto Keep Alive")
-        text = "\n".join(lines)
-
-        if screenshot_file and Path(screenshot_file).exists():
-            with open(screenshot_file, "rb") as f:
-                requests.post(
-                    f"https://api.telegram.org/bot{token}/sendPhoto",
-                    data={"chat_id": chat_id, "caption": text},
-                    files={"photo": f},
-                    timeout=60
-                )
-        else:
-            requests.post(
-                f"https://api.telegram.org/bot{token}/sendMessage",
-                json={"chat_id": chat_id, "text": text, "disable_web_page_preview": True},
-                timeout=30
-            )
+        requests.post(api, data=msg.encode('utf-8'))
     except Exception as e:
         logger.warning(f"Telegram 通知失败: {e}")
 
