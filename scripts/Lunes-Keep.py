@@ -599,7 +599,6 @@ def main():
     email, password = parse_single_account()
     proxy = os.environ.get("PROXY_SERVER")
     display = setup_display()
-    Allow_screenshot=False
     try:
         result = betadash_login(email, password, proxy, max_retries=1)
 
@@ -623,4 +622,5 @@ def main():
 
 
 if __name__ == "__main__":
+    Allow_screenshot=False
     main()
