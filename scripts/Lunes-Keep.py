@@ -19,6 +19,7 @@ from seleniumbase.common.exceptions import TimeoutException
 BETADASH_LOGIN_URL = "https://betadash.lunes.host/login"
 OUTPUT_DIR = Path("output/screenshots")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+Allow_screenshot=False
 
 logging.basicConfig(
     level=logging.INFO,
@@ -620,6 +621,5 @@ def main():
         if display:
             display.stop()
 
-Allow_screenshot=False
 if __name__ == "__main__":
     main()
