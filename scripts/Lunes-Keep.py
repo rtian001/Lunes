@@ -80,6 +80,8 @@ def screenshot_path(name: str) -> str:
 
 
 def safe_screenshot(sb, path: str):
+    if not Allow_screenshot:
+        return
     try:
         sb.save_screenshot(path)
         logger.info(f"📸 截图 → {Path(path).name}")
@@ -597,7 +599,7 @@ def main():
     email, password = parse_single_account()
     proxy = os.environ.get("PROXY_SERVER")
     display = setup_display()
-
+    Allow_screenshot=False
     try:
         result = betadash_login(email, password, proxy, max_retries=1)
 
