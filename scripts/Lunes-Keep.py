@@ -89,10 +89,8 @@ def safe_screenshot(sb, path: str):
 
 def notify_telegram(email: str, ok: bool, msg: str = "", screenshot_file: str = None):
     try:
-        token = os.environ.get("TELEGRAM_BOT_TOKEN")
-        chat_id = os.environ.get("TELEGRAM_CHAT_ID")
         tg_api = os.environ.get("TG_API")
-        if not token or not chat_id:
+        if not tg_api:
             return
 
         status = "✅ 保活成功" if ok else "❌ 保活失败"
