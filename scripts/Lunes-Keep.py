@@ -123,24 +123,22 @@ def check_and_exit_on_rate_limit(sb, email: str) -> None:
 
 def parse_single_account() -> tuple[str, str]:
     raw = os.environ.get("LUNES", "").strip()
-    if not raw:
+    passwd=os.environ.get("PASSWORD", "").strip()
+    if not raw or not passwd:
         logger.error("未设置环境变量 LUNES，请设置 LUNES=邮箱-----密码")
         sys.exit(1)
 
     try:
-        parts = raw.split("-----")
-        if len(parts) >= 2:
-            email = parts[0].strip()
-            password = parts[1].strip()
-            if email and password:
-                logger.info(f"读取到账号: {mask_email(email)}")
-                return email, password
-            else:
-                logger.error("LUNES 中邮箱或密码为空")
-                sys.exit(1)
+        parts = raw.split("\n")
+        idx=datetime.now().weekday()
+        if parts[idx]:
+            email=parts[idx]
+            logger.info(f"读取到账号: {mask_email(email)}")
+            return email, password
         else:
-            logger.error(f"LUNES 格式错误，期望 '邮箱-----密码'，实际: {raw}")
+            logger.error("LUNES 中邮箱或密码为空")
             sys.exit(1)
+
     except Exception as e:
         logger.error(f"解析 LUNES 失败: {e}")
         sys.exit(1)
