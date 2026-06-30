@@ -123,8 +123,8 @@ def check_and_exit_on_rate_limit(sb, email: str) -> None:
 
 def parse_single_account() -> tuple[str, str]:
     raw = os.environ.get("LUNES", "").strip()
-    passwd=os.environ.get("PASSWORD", "").strip()
-    if not raw or not passwd:
+    password=os.environ.get("PASSWORD", "").strip()
+    if not raw or not password:
         logger.error("未设置环境变量 LUNES，请设置 LUNES=邮箱-----密码")
         sys.exit(1)
 
