@@ -59,7 +59,7 @@ jobs:
             listen: 127.0.0.1:7890
           EOF
 
-          ./hysteria client -c hy2.yaml &
+          ./hysteria client --disable-update-check -c hy2.yaml &
           sleep 3
           echo "PROXY_SERVER=http://127.0.0.1:7890" >> $GITHUB_ENV
 
