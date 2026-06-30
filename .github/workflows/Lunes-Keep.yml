@@ -41,7 +41,7 @@ jobs:
             echo "PROXY_SERVER=" >> $GITHUB_ENV
             exit 0
           fi
-          wget -q https://github.com/apernet/hysteria/releases/latest/download/hysteria-linux-amd64 -O hysteria
+          wget -q https://github.com/apernet/hysteria/releases/download/app/v2.8.0/hysteria-linux-amd64 -O hysteria
           chmod +x hysteria
 
           URL="${HY2_URL#hysteria2://}"
@@ -72,13 +72,13 @@ jobs:
         run: python scripts/Lunes-Keep.py
 
 
-      - name: 上传截图 
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-           name: screenshots-${{ github.run_number }}
-           path: output/screenshots/
-           retention-days: 3
+      # - name: 上传截图 
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #      name: screenshots-${{ github.run_number }}
+      #      path: output/screenshots/
+      #      retention-days: 3
 
       - name: 清理旧运行
         uses: Mattraks/delete-workflow-runs@v2
