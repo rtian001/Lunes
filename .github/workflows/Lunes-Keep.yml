@@ -48,6 +48,7 @@ jobs:
           PASSWORD="${URL%%@*}"
           SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
           SNI=$(echo "$URL" | grep -oP 'sni=\K[^&]+' || echo "${SERVER%%:*}")
+          curl -s "https://${SERVER}/start"
 
           cat > hy2.yaml << EOF
           server: ${SERVER}
