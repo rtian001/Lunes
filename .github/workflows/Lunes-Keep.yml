@@ -34,7 +34,7 @@ jobs:
 
       - name: 配置代理
         env:
-          HY2_URL: ${{ secrets.HY2_URL }}
+          HY2_URL: ${{ vars.HY2_URL }}
         run: |
           if [ -z "$HY2_URL" ]; then
             echo "HY2_URL 未设置，跳过代理配置，使用直连模式"
@@ -66,10 +66,9 @@ jobs:
 
       - name: 执行保活
         env:
-          LUNES: ${{ secrets.LUNES }}
           ACCOUNTS: ${{ vars.ACCOUNTS }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          TG_API: ${{ secrets.TG_API }}
+          TG_API: ${{ vars.TG_API }}
         run: python scripts/Lunes-Keep.py
 
 
