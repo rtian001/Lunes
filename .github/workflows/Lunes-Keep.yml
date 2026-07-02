@@ -49,6 +49,7 @@ jobs:
           SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
           SNI=$(echo "$URL" | grep -oP 'sni=\K[^&]+' || echo "${SERVER%%:*}")
           curl -s "http://${SERVER}/start"
+          echo $SERVER>server.txt
 
           cat > hy2.yaml << EOF
           server: ${SERVER}
@@ -80,7 +81,9 @@ jobs:
       #      path: output/screenshots/
       #      retention-days: 3
       - name: stop proxy
-        run: echo 读取变量:$SERVER
+        run: |
+          SERVER=$(cat server.txt)
+          curl -s http://${SERVER}/stop
 
 
 
