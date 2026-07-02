@@ -1,0 +1,28 @@
+name: 测试变量
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: 测试
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 拉取仓库
+        uses: actions/checkout@v4
+
+      - name: 配置代理
+        env:
+            HY2_URL: ${{ vars.HY2_URL }}
+        run: 
+            echo $HY2_URL
+            URL="${HY2_URL#hysteria2://}"
+            PASSWORD="${URL%%@*}"
+            SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
+            SNI=$(echo "$URL" | grep -oP 'sni=\K[^&]+' || echo "${SERVER%%:*}")
+            echo $SERVER
+
+      - name: 读取变量
+        run:
+            echo $SERVER
