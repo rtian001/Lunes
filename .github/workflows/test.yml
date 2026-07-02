@@ -16,7 +16,7 @@ jobs:
         env:
             HY2_URL: ${{ vars.HY2_URL }}
         run: 
-            echo $HY2_URL
+            echo "环境变量:$HY2_URL"
             URL="${HY2_URL#hysteria2://}"
             PASSWORD="${URL%%@*}"
             SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
