@@ -79,6 +79,10 @@ jobs:
       #      name: screenshots-${{ github.run_number }}
       #      path: output/screenshots/
       #      retention-days: 3
+      - name: stop proxy
+        run: echo 读取变量:$SERVER
+
+
 
       - name: 清理旧运行
         uses: Mattraks/delete-workflow-runs@v2
