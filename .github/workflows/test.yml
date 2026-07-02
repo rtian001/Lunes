@@ -21,6 +21,7 @@ jobs:
             PASSWORD="${URL%%@*}"
             SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
             SNI=$(echo "$URL" | grep -oP 'sni=\K[^&]+' || echo "${SERVER%%:*}")
+            export SERVER=$SERVER
             echo $SERVER
 
       - name: 读取变量
