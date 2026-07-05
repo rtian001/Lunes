@@ -48,12 +48,6 @@ jobs:
           PASSWORD="${URL%%@*}"
           SERVER="${URL#*@}"; SERVER="${SERVER%%\?*}"
           SNI=$(echo "$URL" | grep -oP 'sni=\K[^&]+' || echo "${SERVER%%:*}")
-          STATUS=$(curl -s http://${SERVER}/running)
-          if [[ $STATUS = Stoped ]];then
-            curl -s "http://${SERVER}/start" >/dev/null
-            echo $SERVER>server.txt
-            echo "HY服务器已临时启动。"
-          fi
 
           cat > hy2.yaml << EOF
           server: ${SERVER}
@@ -84,13 +78,6 @@ jobs:
       #      name: screenshots-${{ github.run_number }}
       #      path: output/screenshots/
       #      retention-days: 3
-      - name: stop proxy
-        run: |
-          if [[ -e server.txt ]];then
-            SERVER=$(cat server.txt)
-            curl -s http://${SERVER}/stop >/dev/null
-            echo "HY服务器已关闭。"
-          fi
 
 
 
